@@ -1,0 +1,2518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Comprehensive HCI Study Guide covering all 11 lectures for HCI2011 exam preparation">
+<title>HCI2011 — Ultimate Exam Study Guide</title>
+<style>
+/* ===== CSS RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0f1117;
+  --card-bg: #1a1d2e;
+  --sidebar-bg: #0d0f1a;
+  --sidebar-text: #8b93a7;
+  --sidebar-active: #60a5fa;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-dark: #a5b4fc;
+  --text: #e2e8f0;
+  --text-light: #94a3b8;
+  --text-muted: #64748b;
+  --border: #2a2f45;
+  --border-light: #353b55;
+  --tag-bg: rgba(99,102,241,.12);
+  --tag-text: #a5b4fc;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --quiz-bg: rgba(251,191,36,.06);
+  --quiz-border: rgba(251,191,36,.25);
+  --key-bg: rgba(52,211,153,.07);
+  --key-border: #34d399;
+  --link-bg: rgba(192,132,252,.07);
+  --link-border: #c084fc;
+  --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  --radius: 14px;
+  --shadow: 0 2px 8px rgba(0,0,0,.35), 0 1px 3px rgba(0,0,0,.25);
+  --shadow-lg: 0 12px 28px rgba(0,0,0,.45), 0 4px 10px rgba(0,0,0,.3);
+  --glow: 0 0 20px rgba(99,102,241,.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  font-size: 15.5px;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 270px;
+  height: 100vh;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 24px 0;
+  transition: transform .3s ease;
+  border-right: 1px solid var(--border);
+}
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.sidebar-header {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.sidebar-header h2 {
+  color: #f1f5f9;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+}
+
+.sidebar-header p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  font-size: 13px;
+  transition: all .2s;
+  border-left: 3px solid transparent;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background: rgba(99,102,241,.08);
+  color: #e2e8f0;
+  border-left-color: var(--accent-light);
+}
+
+.sidebar nav a .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  background: rgba(99,102,241,.15);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-light);
+  flex-shrink: 0;
+}
+
+/* ===== MOBILE TOGGLE ===== */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 16px; left: 16px;
+  z-index: 1100;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  color: var(--text);
+  font-size: 22px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ===== MAIN CONTENT ===== */
+.main {
+  margin-left: 270px;
+  padding: 36px 44px 80px;
+  max-width: 1100px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 48px 44px;
+  margin-bottom: 36px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--glow);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -40px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; left: 30%;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.04);
+}
+
+.hero h1 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -.5px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.hero p { opacity: .85; font-size: 15px; position: relative; }
+
+/* ===== CHAPTER CARD ===== */
+.chapter {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 32px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color .3s, box-shadow .3s;
+}
+
+.chapter:hover {
+  border-color: var(--border-light);
+  box-shadow: var(--shadow), var(--glow);
+}
+
+.chapter-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(99,102,241,.03);
+}
+
+.chapter-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), #a855f7);
+  color: #fff;
+  font-weight: 800;
+  font-size: 17px;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(99,102,241,.3);
+}
+
+.chapter-header h2 {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+  color: #f1f5f9;
+}
+
+.chapter-body { padding: 28px 28px; }
+
+/* ===== TYPOGRAPHY ===== */
+.chapter-body h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 30px 0 12px;
+  color: var(--accent-dark);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+
+.chapter-body h3:first-child { margin-top: 0; }
+
+.chapter-body h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 22px 0 8px;
+  color: #cbd5e1;
+}
+
+.chapter-body p {
+  margin-bottom: 12px;
+  color: var(--text-light);
+}
+
+.chapter-body ul, .chapter-body ol {
+  margin: 8px 0 16px 20px;
+}
+
+.chapter-body li {
+  margin-bottom: 6px;
+  color: var(--text-light);
+}
+
+strong, b { color: #e2e8f0; font-weight: 600; }
+
+/* ===== KEY TERM HIGHLIGHT ===== */
+.key {
+  background: var(--key-bg);
+  border-left: 3px solid var(--key-border);
+  padding: 14px 18px;
+  border-radius: 0 10px 10px 0;
+  margin: 16px 0;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.key strong { color: var(--success); }
+
+/* ===== CONCEPT LINK BOX ===== */
+.concept-link {
+  background: var(--link-bg);
+  border-left: 3px solid var(--link-border);
+  padding: 14px 18px;
+  border-radius: 0 10px 10px 0;
+  margin: 22px 0;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.concept-link::before {
+  content: '🔗 ';
+}
+
+.concept-link strong { color: #d8b4fe; }
+
+/* ===== TABLES ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+th {
+  background: rgba(99,102,241,.1);
+  color: var(--accent-dark);
+  font-weight: 600;
+  text-align: left;
+  padding: 11px 14px;
+  border-bottom: 2px solid var(--border);
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-light);
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.02); }
+
+/* ===== FORMULA ===== */
+.formula {
+  background: rgba(99,102,241,.08);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 24px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 18px 0;
+  letter-spacing: .5px;
+  color: var(--accent-dark);
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+
+/* ===== QUIZ SECTION ===== */
+.quiz {
+  background: var(--quiz-bg);
+  border: 1px solid var(--quiz-border);
+  border-radius: var(--radius);
+  padding: 28px 28px;
+  margin-top: 32px;
+}
+
+.quiz h3 {
+  color: var(--warning) !important;
+  border-bottom-color: var(--quiz-border) !important;
+  margin-top: 0 !important;
+  font-size: 18px !important;
+}
+
+.quiz ol { counter-reset: quiz; list-style: none; margin-left: 0; }
+
+.quiz ol > li {
+  counter-increment: quiz;
+  margin-bottom: 18px;
+  padding-left: 38px;
+  position: relative;
+  color: var(--text-light);
+}
+
+.quiz ol > li::before {
+  content: 'Q' counter(quiz);
+  position: absolute;
+  left: 0; top: 1px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #0f1117;
+  background: var(--warning);
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+
+.quiz .options { margin: 6px 0 0 4px; list-style: upper-alpha; }
+.quiz .options li { margin-bottom: 3px; padding-left: 0; color: var(--text-light); }
+.quiz .options li::before { display: none; }
+
+details {
+  margin-top: 24px;
+  border-top: 1px dashed var(--quiz-border);
+  padding-top: 16px;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--warning);
+  font-size: 15px;
+  user-select: none;
+  transition: color .2s;
+}
+
+summary:hover { color: #fcd34d; text-decoration: underline; }
+
+details .answer-list { margin-top: 12px; }
+details .answer-list li {
+  margin-bottom: 6px;
+  font-size: 14px;
+  padding-left: 0;
+  color: var(--text-light);
+}
+details .answer-list li::before { display: none; }
+details .answer-list li strong { color: var(--success); }
+
+/* ===== PROGRESS BAR ===== */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 270px; right: 0;
+  height: 3px;
+  background: var(--border);
+  z-index: 999;
+}
+
+.progress-bar .fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), #a855f7, #ec4899);
+  transition: width .15s;
+  box-shadow: 0 0 8px rgba(99,102,241,.5);
+}
+
+/* ===== BACK TO TOP ===== */
+.back-top {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(99,102,241,.4);
+  transition: transform .2s, box-shadow .2s;
+  z-index: 900;
+}
+.back-top:hover { transform: scale(1.12); box-shadow: 0 0 28px rgba(99,102,241,.6); }
+.back-top.show { display: flex; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ===== SELECTION ===== */
+::selection { background: rgba(99,102,241,.35); color: #fff; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .menu-toggle { display: flex; }
+  .main { margin-left: 0; padding: 24px 18px 60px; }
+  .progress-bar { left: 0; }
+  .hero { padding: 32px 24px; }
+  .hero h1 { font-size: 24px; }
+  .chapter-body, .quiz { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE TOGGLE -->
+<button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle menu">☰</button>
+
+<!-- READING PROGRESS -->
+<div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2>📘 HCI Study Guide</h2>
+    <p>HCI2011 · 11 Lectures</p>
+  </div>
+  <nav>
+    <a href="#ch1"><span class="num">1</span>Introduction to HCI &amp; ID</a>
+    <a href="#ch2"><span class="num">2</span>Fundamental Theories</a>
+    <a href="#ch3"><span class="num">3</span>Design Principles &amp; Usability</a>
+    <a href="#ch4"><span class="num">4</span>Human Capabilities &amp; Constraints</a>
+    <a href="#ch5"><span class="num">5</span>User-Centered Design</a>
+    <a href="#ch6"><span class="num">6</span>User Research</a>
+    <a href="#ch7"><span class="num">7</span>Prototyping</a>
+    <a href="#ch8"><span class="num">8</span>Usability Principles &amp; Testing</a>
+    <a href="#ch9"><span class="num">9</span>Human-Centered Real-World</a>
+    <a href="#ch10"><span class="num">10</span>Designing AI Interaction</a>
+    <a href="#ch11"><span class="num">11</span>Trust, Ethics &amp; Error in AI</a>
+  </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+<!-- HERO -->
+<section class="hero">
+  <h1>HCI2011 — Ultimate Exam Study Guide</h1>
+  <p>Comprehensive summaries, concept links, and 20 quiz questions per chapter.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 1 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch1">
+  <div class="chapter-header">
+    <div class="chapter-num">1</div>
+    <h2>Introduction to HCI and Interaction Design</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>1. What Is Human–Computer Interaction (HCI)?</h3>
+    <p><strong>Human–Computer Interaction (HCI)</strong> is a <strong>cross-disciplinary</strong> field that studies how people interact with computers. The "I" in HCI refers to both <strong>interaction</strong> (the abstract model) and <strong>interface</strong> (the physical/software tools).</p>
+    <p>HCI focuses on the <strong>design, implementation, and evaluation</strong> of interactive systems. It combines knowledge from:</p>
+    <ul>
+      <li><strong>Engineering</strong></li>
+      <li><strong>Psychology</strong></li>
+      <li><strong>Ergonomics</strong></li>
+      <li><strong>Design</strong></li>
+    </ul>
+
+    <h3>2. Why HCI Is Important</h3>
+    <p>Computers are used in almost all areas of life. Good HCI ensures:</p>
+    <ul>
+      <li><strong>Easy use</strong></li>
+      <li><strong>Efficiency</strong></li>
+      <li><strong>Safety</strong></li>
+      <li><strong>Correct task completion</strong></li>
+    </ul>
+    <div class="key"><strong>Key:</strong> Good usability leads to higher productivity.</div>
+
+    <h3>3. Interaction vs. Interface</h3>
+    <table>
+      <tr><th>Concept</th><th>Definition</th></tr>
+      <tr><td><strong>Interaction</strong></td><td>The abstract model of how users perform a task with a computer</td></tr>
+      <tr><td><strong>Interface</strong></td><td>The physical or software tools that implement the interaction (e.g., mouse, keyboard, screen)</td></tr>
+    </table>
+
+    <h3>4. Usability in HCI</h3>
+    <p>High usability means systems are:</p>
+    <ul>
+      <li><strong>Easy to learn</strong></li>
+      <li><strong>Efficient to use</strong></li>
+      <li><strong>Safe</strong></li>
+      <li>Help users <strong>complete tasks correctly</strong></li>
+    </ul>
+
+    <h3>5. User Experience (UX)</h3>
+    <p><strong>UX</strong> includes more than usability. It covers:</p>
+    <ul>
+      <li><strong>Functionality</strong></li>
+      <li><strong>Usability</strong></li>
+      <li><strong>Aesthetic design</strong></li>
+      <li><strong>Emotional satisfaction</strong></li>
+      <li><strong>Integration into daily life</strong></li>
+    </ul>
+    <div class="key"><strong>Key:</strong> Good UX can make users prefer a product even if similar products exist. (Example: iPod's success was due to quality UX — simple, elegant, pleasurable.)</div>
+
+    <h3>6. Why Good HCI Design Is Difficult</h3>
+    <p>HCI design must consider many factors simultaneously:</p>
+    <ul>
+      <li>Different <strong>user types</strong></li>
+      <li><strong>Task characteristics</strong></li>
+      <li><strong>Device capabilities</strong> and cost</li>
+      <li>Lack of exact <strong>usability measurements</strong></li>
+      <li>Rapidly <strong>changing technology</strong></li>
+    </ul>
+    <p>Designers need knowledge from <strong>many different fields</strong>.</p>
+
+    <h3>7. The Six HCI Principles</h3>
+
+    <h4>Principle 1: "Know Thy User" (User-Centered Design)</h4>
+    <p>Interfaces should be designed around <strong>target users</strong>, not developers. Design must match users' needs, abilities, and skills.</p>
+
+    <h4>Principle 2: Understand the Task</h4>
+    <p>Design should be based on a clear understanding of the <strong>task</strong> — the job a user wants to complete. Designers must identify the sequence of steps and subtask structure.</p>
+
+    <h4>Principle 3: Reduce Memory Load</h4>
+    <p>Interfaces should require as little memory as possible. Short-term memory (STM) holds only <strong>5–9 items</strong> (Miller's "magic number").</p>
+
+    <h4>Principle 4: Strive for Consistency</h4>
+    <p>Consistency reduces memory load and helps users learn faster. Types: <strong>within</strong> an application and <strong>across</strong> applications. Inconsistency causes confusion and more errors.</p>
+
+    <h4>Principle 5: Prevent Errors and Allow Reversal</h4>
+    <p>Show only relevant options; disable invalid items; prefer <strong>selection over typing</strong>. Choosing is safer than remembering and typing.</p>
+
+    <h4>Principle 6: Naturalness</h4>
+    <p>Interfaces should feel <strong>natural and familiar</strong>. Includes:</p>
+    <ul>
+      <li><strong>Metaphorical design</strong> — use real-life metaphors (e.g., virtual sphere for rotation)</li>
+      <li><strong>Affordance</strong> — the design shows how it should be used; makes interaction intuitive and self-explanatory</li>
+      <li><strong>Natural interaction</strong> — gestures, natural language, everyday actions</li>
+    </ul>
+
+    <h3>8. Interaction Design (ID)</h3>
+    <p><strong>"Designing interactive products to support the way people communicate and interact in their everyday and working lives."</strong> — Sharp, Rogers, and Preece (2019)</p>
+    <p>ID is <strong>multidisciplinary</strong>. Designers must understand how people think, behave, communicate, and interact — plus emotions, aesthetics, business, and technology.</p>
+
+    <h4>Four Basic Activities of Interaction Design</h4>
+    <ol>
+      <li><strong>Discovering requirements</strong></li>
+      <li><strong>Designing alternatives</strong></li>
+      <li><strong>Prototyping</strong> alternative designs</li>
+      <li><strong>Evaluating</strong> the product and its UX throughout</li>
+    </ol>
+
+    <h4>Core Characteristics of Interaction Design</h4>
+    <ul>
+      <li>Users involved <strong>throughout</strong> development</li>
+      <li>Specific usability and UX goals <strong>identified and documented early</strong></li>
+      <li><strong>Iteration</strong> through core activities</li>
+    </ul>
+
+    <h3>9. HCI vs. Interaction Design</h3>
+    <table>
+      <tr><th>Aspect</th><th>HCI</th><th>Interaction Design</th></tr>
+      <tr><td><strong>Focus</strong></td><td>Studying how people use computers</td><td>Designing how people interact with products</td></tr>
+      <tr><td><strong>Scope</strong></td><td>Often focuses on computer systems</td><td>Includes physical and digital products</td></tr>
+    </table>
+
+    <div class="concept-link"><strong>Concept Link:</strong> The six HCI principles introduced here (especially "Know Thy User" and "Reduce Memory Load") connect directly to <strong>L4 (Human Capabilities &amp; Constraints)</strong> and <strong>L5 (User-Centered Design)</strong>. The four activities of ID are explored in depth across <strong>L6 (User Research)</strong>, <strong>L7 (Prototyping)</strong>, and <strong>L8 (Usability Testing)</strong>.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 1 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> What does the "I" in HCI stand for?
+          <ol class="options">
+            <li>Intelligence and Implementation</li>
+            <li>Interaction and Interface</li>
+            <li>Integration and Improvement</li>
+            <li>Input and Instruction</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> HCI is a single-discipline field focused only on engineering.</li>
+        <li><strong>(Fill)</strong> Short-term memory can hold only ______ items, known as Miller's magic number.</li>
+        <li><strong>(MC)</strong> Which HCI principle states that interfaces should feel natural and familiar?
+          <ol class="options">
+            <li>Know Thy User</li>
+            <li>Reduce Memory Load</li>
+            <li>Naturalness</li>
+            <li>Consistency</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> User Experience (UX) and usability are the same concept.</li>
+        <li><strong>(Fill)</strong> The design showing how it should be used (making interaction intuitive) is called ______.</li>
+        <li><strong>(MC)</strong> Which of the following is NOT one of the four basic activities of interaction design?
+          <ol class="options">
+            <li>Discovering requirements</li>
+            <li>Prototyping alternative designs</li>
+            <li>Writing source code</li>
+            <li>Evaluating the product</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Consistency within an application is important, but consistency across different applications does not matter.</li>
+        <li><strong>(MC)</strong> Why is good HCI design considered difficult?
+          <ol class="options">
+            <li>Because there is only one correct design solution</li>
+            <li>Because it must consider different users, tasks, devices, and rapidly changing technology simultaneously</li>
+            <li>Because HCI only applies to desktop computers</li>
+            <li>Because users always know exactly what they want</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> HCI combines knowledge from Engineering, Psychology, ______, and Design.</li>
+        <li><strong>(T/F)</strong> Interaction design is done by a single person rather than a team.</li>
+        <li><strong>(MC)</strong> What makes an interface "usable"?
+          <ol class="options">
+            <li>It has the most features</li>
+            <li>It is easy to learn, efficient, safe, and helps complete tasks correctly</li>
+            <li>It uses the latest technology</li>
+            <li>It has the most colorful design</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> The abstract model of how users perform a task with a computer is called ______.</li>
+        <li><strong>(T/F)</strong> Choosing from a menu is generally safer than requiring users to type from memory.</li>
+        <li><strong>(MC)</strong> According to the iPod example, what was the main reason for its success?
+          <ol class="options">
+            <li>It was the cheapest option</li>
+            <li>Quality user experience — simple, elegant, pleasurable</li>
+            <li>It had the most storage</li>
+            <li>It was the only MP3 player available</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Designers use ______ from real life to represent digital actions (e.g., a virtual sphere for rotating objects).</li>
+        <li><strong>(T/F)</strong> Users should be involved only at the very end of the design process.</li>
+        <li><strong>(MC)</strong> What is the difference between HCI and Interaction Design in terms of scope?
+          <ol class="options">
+            <li>HCI focuses on physical products; ID focuses on digital</li>
+            <li>HCI often focuses on computer systems; ID includes both physical and digital products</li>
+            <li>They are identical in scope</li>
+            <li>ID only covers mobile apps</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Specific usability and user experience goals need to be identified, clearly documented, and agreed to at the ______ of the project.</li>
+        <li><strong>(T/F)</strong> Iteration through the core activities of interaction design is an essential characteristic.</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>B</strong> — Interaction and Interface</li>
+          <li><strong>False</strong> — HCI is cross-disciplinary (Engineering, Psychology, Ergonomics, Design)</li>
+          <li><strong>5–9</strong></li>
+          <li><strong>C</strong> — Naturalness</li>
+          <li><strong>False</strong> — UX is broader, including functionality, aesthetics, emotional satisfaction, etc.</li>
+          <li><strong>Affordance</strong></li>
+          <li><strong>C</strong> — Writing source code is not one of the four activities</li>
+          <li><strong>False</strong> — Consistency across different applications also matters</li>
+          <li><strong>B</strong> — Multiple factors must be considered simultaneously</li>
+          <li><strong>Ergonomics</strong></li>
+          <li><strong>False</strong> — Interaction design involves multidisciplinary teams</li>
+          <li><strong>B</strong> — Easy to learn, efficient, safe, correct task completion</li>
+          <li><strong>Interaction</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Quality UX</li>
+          <li><strong>Metaphors</strong></li>
+          <li><strong>False</strong> — Users should be involved throughout development</li>
+          <li><strong>B</strong> — HCI focuses on computer systems; ID includes physical and digital</li>
+          <li><strong>beginning</strong></li>
+          <li><strong>True</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 2 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch2">
+  <div class="chapter-header">
+    <div class="chapter-num">2</div>
+    <h2>Fundamental Theories in HCI</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>1. Why Theories Matter in HCI</h3>
+    <p>Effective HCI design requires understanding both <strong>computer factors</strong> (software/hardware) and <strong>human behavior</strong> (how users think, perceive, and act). Technology alone does NOT guarantee good usability.</p>
+    <div class="key"><strong>Key:</strong> Poor understanding of users leads to poor interaction design. Human abilities and limitations directly affect interaction quality.</div>
+
+    <h3>2. What Are HCI Theories?</h3>
+    <p><strong>HCI theories</strong> are scientific explanations of how humans <strong>perceive, think, and act</strong> when interacting with computer systems. They help designers understand user behavior and design interfaces that match human abilities and limitations.</p>
+
+    <h3>3. Theoretical Foundation 1: Cognitive Science</h3>
+    <p>Focuses on <strong>mental processes</strong> involved in interaction: problem solving, attention, memory, decision making, task modeling, and GOMS models.</p>
+
+    <h4>Human Problem-Solving Model</h4>
+    <p>Three main parts:</p>
+    <ol>
+      <li><strong>Sensation &amp; Perception</strong> — receive and interpret external input (visual, audio, touch)</li>
+      <li><strong>Memory</strong> — short-term information + long-term knowledge</li>
+      <li><strong>Decision Maker &amp; Executor</strong> — creates plans, chooses actions based on memory and perception</li>
+    </ol>
+
+    <h4>Task Modelling</h4>
+    <p>Helps designers understand steps needed to achieve a system goal. Structure: <strong>Goal → Sub-goal → Action → Object</strong>.</p>
+    <p><em>Example (Online Shopping):</em> Goal = Buy a product → Sub-goal = Add to cart → Action = Tap "Add to Cart" → Object = Product item</p>
+
+    <h4>GOMS Model (Goals, Operators, Methods, Selection Rules)</h4>
+    <p>A cognitive model to analyze task performance by breaking tasks into:</p>
+    <ul>
+      <li><strong>Goals</strong> — what the user wants to achieve</li>
+      <li><strong>Operators</strong> — actions like clicking, typing, thinking</li>
+      <li><strong>Methods</strong> — sequences of steps</li>
+      <li><strong>Selection rules</strong> — choosing between methods</li>
+    </ul>
+    <p><em>Example (Save a file):</em> Method 1: File → Save. Method 2: Ctrl+S. Selection Rule: experienced → shortcut; beginner → menu.</p>
+
+    <h3>4. Theoretical Foundation 2: Human Factors</h3>
+    <p>Focuses on <strong>sensory and physical capabilities</strong> of users.</p>
+
+    <h4>Visual Perception</h4>
+    <p>How users see and interpret visual information. Design implications: use <strong>high contrast</strong>, readable fonts, avoid cluttered layouts.</p>
+
+    <h4>Auditory Perception</h4>
+    <p>How users hear and understand sound feedback. Design: use simple alert sounds; <strong>do not rely only on sound</strong> for important messages.</p>
+
+    <h4>Tactile Perception</h4>
+    <p>How users feel physical feedback (e.g., vibration). Important for <strong>mobile and wearable</strong> devices.</p>
+
+    <h4>Ergonomics and Motor Control</h4>
+    <p>How users physically move and control devices. Design: place important buttons within easy reach, avoid small clickable targets. Example: large buttons at bottom of mobile screen (<strong>thumb zone</strong>).</p>
+
+    <h4>Fitts's Law</h4>
+    <div class="formula">MT = a + b × log₂(A / W + 1)</div>
+    <p>Where: <strong>MT</strong> = Movement Time, <strong>A</strong> = Distance to target, <strong>W</strong> = Target width.</p>
+    <ul>
+      <li><strong>Larger targets</strong> → easier to select</li>
+      <li><strong>Closer targets</strong> → faster to reach</li>
+      <li>Important buttons should be <strong>big and near</strong> the user</li>
+    </ul>
+
+    <div class="concept-link"><strong>Concept Link:</strong> Fitts's Law directly supports <strong>L3 (Design Guidelines)</strong> — e.g., minimum touch target size (9mm). Cognitive Science concepts (memory, attention) connect to <strong>L4 (Human Capabilities &amp; Constraints)</strong> and inform <strong>L7 (Prototyping)</strong> decisions about layout and flow.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 2 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> What does GOMS stand for?
+          <ol class="options">
+            <li>Goals, Operations, Modules, Systems</li>
+            <li>Goals, Operators, Methods, Selection Rules</li>
+            <li>Groups, Objects, Models, Structures</li>
+            <li>Guides, Operators, Metrics, Standards</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Advanced technology alone guarantees good usability.</li>
+        <li><strong>(Fill)</strong> In Fitts's Law, MT stands for ______ ______.</li>
+        <li><strong>(MC)</strong> Which theoretical foundation focuses on mental processes like memory and attention?
+          <ol class="options">
+            <li>Human Factors</li>
+            <li>Cognitive Science</li>
+            <li>Ergonomics</li>
+            <li>Motor Control</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> In Fitts's Law, smaller and farther targets are easier to select.</li>
+        <li><strong>(Fill)</strong> The three parts of the human problem-solving model are Sensation &amp; Perception, Memory, and ______ &amp; Executor.</li>
+        <li><strong>(MC)</strong> What does "A" represent in Fitts's Law formula?
+          <ol class="options">
+            <li>Accuracy</li>
+            <li>Amplitude (Distance to target)</li>
+            <li>Attention</li>
+            <li>Affordance</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Auditory feedback alone is sufficient for all important messages.</li>
+        <li><strong>(MC)</strong> In the GOMS example of saving a file, the "Selection Rule" determines:
+          <ol class="options">
+            <li>Which file to save</li>
+            <li>Which method to use based on user experience</li>
+            <li>The color of the save button</li>
+            <li>The file format</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> The "thumb zone" in mobile design means placing important buttons at the ______ of the screen.</li>
+        <li><strong>(T/F)</strong> Task modelling helps designers understand the steps needed to achieve a system goal.</li>
+        <li><strong>(MC)</strong> Tactile perception is especially important for:
+          <ol class="options">
+            <li>Desktop computers only</li>
+            <li>Mobile and wearable devices</li>
+            <li>Server hardware</li>
+            <li>Printed media</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> In task modelling, the structure is: Goal → Sub-goal → ______ → Object.</li>
+        <li><strong>(T/F)</strong> Fitts's Law states that larger and closer buttons are faster to reach.</li>
+        <li><strong>(MC)</strong> Why is high contrast between text and background recommended?
+          <ol class="options">
+            <li>It looks more modern</li>
+            <li>It improves visual perception and readability</li>
+            <li>It reduces file size</li>
+            <li>It is required by law everywhere</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> HCI theories are scientific explanations of how humans ______, think, and act when interacting with computers.</li>
+        <li><strong>(T/F)</strong> In the GOMS model, "Operators" refer to the goals the user wants to achieve.</li>
+        <li><strong>(MC)</strong> According to this lecture, what is the relationship between technology and usability?
+          <ol class="options">
+            <li>Better technology always means better usability</li>
+            <li>Technology is irrelevant to usability</li>
+            <li>Technology alone is not enough; understanding users is essential</li>
+            <li>Users must adapt to whatever technology is provided</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> "W" in Fitts's Law represents the ______ of the target.</li>
+        <li><strong>(T/F)</strong> Cognitive science studies how humans solve problems, and HCI designers use these models to design interfaces that match natural problem-solving behaviors.</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>B</strong> — Goals, Operators, Methods, Selection Rules</li>
+          <li><strong>False</strong> — Technology alone is not enough</li>
+          <li><strong>Movement Time</strong></li>
+          <li><strong>B</strong> — Cognitive Science</li>
+          <li><strong>False</strong> — Larger and closer targets are easier</li>
+          <li><strong>Decision Maker</strong></li>
+          <li><strong>B</strong> — Amplitude (Distance to target)</li>
+          <li><strong>False</strong> — Do not rely only on sound; use visual feedback too</li>
+          <li><strong>B</strong> — Which method to use based on user experience</li>
+          <li><strong>bottom</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Mobile and wearable devices</li>
+          <li><strong>Action</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Improves visual perception and readability</li>
+          <li><strong>perceive</strong></li>
+          <li><strong>False</strong> — Operators are actions (clicking, typing), not goals</li>
+          <li><strong>C</strong> — Technology alone is not enough</li>
+          <li><strong>width</strong></li>
+          <li><strong>True</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 3 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch3">
+  <div class="chapter-header">
+    <div class="chapter-num">3</div>
+    <h2>HCI Design Principles, Guidelines &amp; Usability Testing</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>1. What Are HCI Guidelines?</h3>
+    <p><strong>HCI Guidelines</strong> are specific, practical recommendations that tell designers <strong>how to design and implement</strong> an interface to improve usability and user experience.</p>
+    <p>Key characteristics:</p>
+    <ul>
+      <li><strong>Specific and detailed</strong> (not abstract)</li>
+      <li><strong>Context-dependent</strong> (depend on users, tasks, platform, environment)</li>
+      <li>Derived from HCI <strong>principles, theories, and practical experience</strong></li>
+    </ul>
+
+    <h3>2. Principles vs. Guidelines vs. Theories</h3>
+    <table>
+      <tr><th>Level</th><th>Description</th><th>Example</th></tr>
+      <tr><td><strong>Theories</strong></td><td>Scientific explanations (abstract)</td><td>Fitts's Law, Cognitive Science</td></tr>
+      <tr><td><strong>Principles</strong></td><td>General rules that guide design thinking</td><td>"Know Thy User", Consistency</td></tr>
+      <tr><td><strong>Guidelines</strong></td><td>Specific, practical recommendations</td><td>"Touch targets ≥ 9mm", "Use high contrast"</td></tr>
+    </table>
+
+    <h3>3. Why Guidelines Are Important</h3>
+    <p>Real systems are complex and constrained. Guidelines:</p>
+    <ul>
+      <li><strong>Reduce design errors</strong></li>
+      <li><strong>Promote consistency</strong></li>
+      <li><strong>Support evidence-based design</strong></li>
+      <li>Especially useful for <strong>novice designers</strong></li>
+    </ul>
+
+    <h3>4. Categories of HCI Design Guidelines</h3>
+
+    <h4>a) Visual Display Layout</h4>
+    <ul>
+      <li>Avoid <strong>clutter and overload</strong></li>
+      <li>Visually prioritize <strong>important information</strong></li>
+      <li>Proper <strong>alignment, spacing</strong>, and limited colors reduce <strong>cognitive load</strong></li>
+    </ul>
+
+    <h4>b) Information Structuring</h4>
+    <ul>
+      <li>Organize by <strong>user goals and tasks</strong></li>
+      <li>Group related content <strong>logically</strong></li>
+      <li>Clear <strong>hierarchies</strong> help understanding</li>
+    </ul>
+
+    <h4>c) Navigation Design</h4>
+    <ul>
+      <li>Users should <strong>always know where they are</strong> and where they can go</li>
+      <li><strong>No dead ends</strong></li>
+      <li>Simple navigation reduces <strong>mental effort and frustration</strong></li>
+    </ul>
+
+    <h4>d) Taking User Input</h4>
+    <ul>
+      <li><strong>Minimize typing</strong> and manual data entry</li>
+      <li><strong>Prefer selection over recall</strong></li>
+      <li>Use <strong>default values</strong> and <strong>auto-completion</strong></li>
+      <li>Keep input formats <strong>consistent</strong></li>
+      <li>Clear labeling prevents mistakes</li>
+    </ul>
+
+    <h4>e) Accessibility Guidelines (WCAG-based)</h4>
+    <table>
+      <tr><th>Principle</th><th>Meaning</th></tr>
+      <tr><td><strong>Perceivable</strong></td><td>Text alternatives, sufficient contrast</td></tr>
+      <tr><td><strong>Operable</strong></td><td>Keyboard access, enough time</td></tr>
+      <tr><td><strong>Understandable</strong></td><td>Predictable behavior, readable text</td></tr>
+      <tr><td><strong>Robust</strong></td><td>Compatible with assistive technologies</td></tr>
+    </table>
+    <div class="key"><strong>Key:</strong> Accessibility is both ethical and legal.</div>
+
+    <h3>5. Limitations of Guidelines</h3>
+    <p>Guidelines have limitations: they can be too specific, may conflict with each other, and cannot cover every situation. Designers must use <strong>judgment</strong>.</p>
+
+    <h3>6. Usability Testing</h3>
+    <p>High usability leads to <strong>higher productivity</strong>, <strong>fewer errors</strong>, and <strong>greater user satisfaction</strong>. Usability is a foundation of UX.</p>
+
+    <h4>Usability Evaluation Criteria (What We Measure)</h4>
+    <ul>
+      <li><strong>Learnability</strong> — how easy for new users</li>
+      <li><strong>Efficiency</strong> — speed of task completion</li>
+      <li><strong>Errors</strong> — frequency and severity</li>
+      <li><strong>Satisfaction</strong> — user contentment</li>
+    </ul>
+
+    <h4>Usability Evaluation Methods (How We Measure)</h4>
+    <ul>
+      <li><strong>Observation study</strong> — watch users perform tasks</li>
+      <li><strong>Measurement-Based Testing</strong> — quantitative: task completion time, error rate, success rate</li>
+      <li><strong>Surveys / Questionnaires</strong> — measure satisfaction</li>
+    </ul>
+
+    <div class="concept-link"><strong>Concept Link:</strong> Guidelines here build on L1's principles and L2's theories (e.g., Fitts's Law → minimum touch target size). WCAG accessibility guidelines connect to <strong>L9 (Accessibility &amp; Inclusivity)</strong>. Usability testing methods are expanded in <strong>L8</strong>.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 3 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> HCI Guidelines are best described as:
+          <ol class="options">
+            <li>Abstract philosophical ideas</li>
+            <li>Specific, practical recommendations for interface design</li>
+            <li>Programming frameworks</li>
+            <li>User manuals</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Guidelines are independent of context — they apply the same way everywhere.</li>
+        <li><strong>(Fill)</strong> The four WCAG accessibility principles are Perceivable, Operable, Understandable, and ______.</li>
+        <li><strong>(MC)</strong> Which guideline category focuses on avoiding clutter and visually prioritizing important information?
+          <ol class="options">
+            <li>Navigation Design</li>
+            <li>Visual Display Layout</li>
+            <li>Information Structuring</li>
+            <li>Accessibility</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Designers should prefer typing over selection to give users more control.</li>
+        <li><strong>(Fill)</strong> Users should never reach ______ ______ in a well-designed navigation system.</li>
+        <li><strong>(MC)</strong> Measurement-Based Usability Testing focuses on:
+          <ol class="options">
+            <li>User opinions only</li>
+            <li>Task completion time, error rate, and success rate</li>
+            <li>Aesthetic appeal</li>
+            <li>Code quality</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Accessibility is only an ethical concern, not a legal one.</li>
+        <li><strong>(MC)</strong> In which scenario is "Learnability" the usability criterion being tested?
+          <ol class="options">
+            <li>Measuring how fast experts complete tasks</li>
+            <li>Observing how new users understand the interface without instructions</li>
+            <li>Counting total errors</li>
+            <li>Asking users about color preferences</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Information should be organized according to user ______ and tasks.</li>
+        <li><strong>(T/F)</strong> High usability leads to higher productivity, fewer errors, and greater user satisfaction.</li>
+        <li><strong>(MC)</strong> What is a key difference between principles and guidelines?
+          <ol class="options">
+            <li>Principles are specific; guidelines are abstract</li>
+            <li>Principles are general rules; guidelines are specific practical recommendations</li>
+            <li>They are the same thing</li>
+            <li>Guidelines come before principles</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Proper alignment, spacing, and limited colors reduce ______ load.</li>
+        <li><strong>(T/F)</strong> Guidelines can always cover every possible design situation.</li>
+        <li><strong>(MC)</strong> Which WCAG principle requires compatibility with assistive technologies?
+          <ol class="options">
+            <li>Perceivable</li>
+            <li>Operable</li>
+            <li>Understandable</li>
+            <li>Robust</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Usability evaluation criteria define ______ is measured, while methods define how.</li>
+        <li><strong>(T/F)</strong> Default values and auto-completion help minimize user input effort.</li>
+        <li><strong>(MC)</strong> Which method would you use to compare two versions of a checkout screen quantitatively?
+          <ol class="options">
+            <li>Interview</li>
+            <li>Measurement-Based Usability Testing</li>
+            <li>Card sorting</li>
+            <li>Brainstorming</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Guidelines are derived from HCI principles, theories, and practical ______.</li>
+        <li><strong>(T/F)</strong> Simple navigation reduces mental effort and frustration.</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>B</strong> — Specific, practical recommendations</li>
+          <li><strong>False</strong> — Guidelines are context-dependent</li>
+          <li><strong>Robust</strong></li>
+          <li><strong>B</strong> — Visual Display Layout</li>
+          <li><strong>False</strong> — Prefer selection over typing</li>
+          <li><strong>dead ends</strong></li>
+          <li><strong>B</strong> — Task completion time, error rate, success rate</li>
+          <li><strong>False</strong> — Accessibility is both ethical and legal</li>
+          <li><strong>B</strong> — Observing new users without instructions</li>
+          <li><strong>goals</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Principles are general; guidelines are specific</li>
+          <li><strong>cognitive</strong></li>
+          <li><strong>False</strong> — Guidelines have limitations and cannot cover every situation</li>
+          <li><strong>D</strong> — Robust</li>
+          <li><strong>what</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Measurement-Based Usability Testing</li>
+          <li><strong>experience</strong></li>
+          <li><strong>True</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 4 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch4">
+  <div class="chapter-header">
+    <div class="chapter-num">4</div>
+    <h2>Human Capabilities and Constraints</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>1. Why Study the Human Side in HCI?</h3>
+    <p>When something goes wrong, the first reaction is often to <strong>blame the user</strong>. HCI takes a different position: users are <strong>normal human beings</strong> with natural limitations. Most interaction problems are caused by <strong>designs that ignore these limitations</strong>, not by technical failures.</p>
+
+    <h3>2. Core Assumption</h3>
+    <div class="key"><strong>Key:</strong> Human limitations are <strong>normal, expected, and shared</strong> by all users to different degrees. Systems that assume unlimited memory, constant attention, perfect perception, or precise motor control will inevitably cause interaction problems.</div>
+
+    <h3>3. Humans and Computers Are Different</h3>
+    <table>
+      <tr><th>Computers</th><th>Humans</th></tr>
+      <tr><td>Process information consistently and precisely</td><td>Forget, lose attention, misinterpret, vary in ability</td></tr>
+    </table>
+    <p>Interaction occurs at the <strong>boundary</strong> between these two different systems. HCI studies the consequences of this difference.</p>
+
+    <h3>4. Human Information Processing</h3>
+    <p>Interaction involves three stages: <strong>Perception → Cognition → Action</strong>. Each stage introduces potential limitations that may cause interaction difficulties if ignored.</p>
+
+    <h3>5. Memory Constraints</h3>
+    <p>Human <strong>working memory is limited</strong>. Users forget steps, previous choices, or system rules — especially across multiple screens. Relying on <strong>recall rather than recognition</strong> increases cognitive load and leads to errors.</p>
+
+    <h3>6. Attention Constraints</h3>
+    <p>Human attention is <strong>limited and easily disrupted</strong>. Users may miss updates, overlook feedback, or lose context. Designs that rely on <strong>sustained attention</strong> often fail in real-world contexts.</p>
+
+    <h3>7. Perceptual Constraints</h3>
+    <p>Perception is influenced by <strong>context and expectations</strong>. Icons may be misinterpreted; important information may be overlooked. The gap between <strong>intended meaning</strong> and <strong>perceived meaning</strong> is a common source of problems.</p>
+
+    <h3>8. Motor Control Constraints</h3>
+    <p>Motor abilities <strong>vary across users and contexts</strong>. Accidental actions, difficulty with small targets, and imprecise movements are common. Designs assuming high precision increase errors.</p>
+
+    <h3>9. Variability Between Users</h3>
+    <p>There is <strong>no single "average" user</strong>. Users differ in cognitive, sensory, and physical abilities, plus experience and context. HCI designs for <strong>ranges of capabilities</strong>, not idealized users.</p>
+
+    <h3>10. From Limitations to Interaction Problems</h3>
+    <div class="key"><strong>Reasoning Pattern:</strong> Human limitation → Interaction difficulty → Usability problem</div>
+    <p>This chain of reasoning is fundamental to HCI analysis.</p>
+
+    <h3>11. Key Takeaways</h3>
+    <ul>
+      <li>Human limitations are <strong>normal</strong></li>
+      <li>Interaction problems often result from <strong>ignored constraints</strong></li>
+      <li>Understanding users is the <strong>foundation</strong> of effective HCI</li>
+    </ul>
+
+    <div class="concept-link"><strong>Concept Link:</strong> This lecture provides the theoretical backbone for <strong>L1's "Know Thy User" principle</strong>, L2's human factors (especially Fitts's Law for motor constraints), and <strong>L3's guidelines</strong> (e.g., "prefer selection over recall" addresses memory constraints). These constraints are what <strong>L7 (Prototyping)</strong> tries to test for and <strong>L8 (Usability Testing)</strong> tries to measure.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 4 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> According to HCI, when multiple users encounter the same error, the problem is most likely:
+          <ol class="options">
+            <li>The users' fault</li>
+            <li>A design limitation</li>
+            <li>A hardware issue</li>
+            <li>Random chance</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> The core assumption in HCI is that human limitations are abnormal and should be eliminated through training.</li>
+        <li><strong>(Fill)</strong> Human interaction involves three stages: Perception, Cognition, and ______.</li>
+        <li><strong>(MC)</strong> Relying on recall rather than recognition increases:
+          <ol class="options">
+            <li>User satisfaction</li>
+            <li>Cognitive load</li>
+            <li>System speed</li>
+            <li>Visual appeal</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> There is a single "average" user that designers should target.</li>
+        <li><strong>(Fill)</strong> The gap between intended meaning and ______ meaning is a common source of interaction problems.</li>
+        <li><strong>(MC)</strong> Which type of constraint explains why users miss updates or overlook feedback?
+          <ol class="options">
+            <li>Memory constraints</li>
+            <li>Attention constraints</li>
+            <li>Motor control constraints</li>
+            <li>Perceptual constraints</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Computers process information consistently, while humans forget and vary in ability.</li>
+        <li><strong>(MC)</strong> The reasoning pattern in HCI analysis is:
+          <ol class="options">
+            <li>Feature → Bug → Fix</li>
+            <li>Human limitation → Interaction difficulty → Usability problem</li>
+            <li>Design → Test → Ship</li>
+            <li>Input → Process → Output</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> HCI designs for ranges of ______, not idealized users.</li>
+        <li><strong>(T/F)</strong> Designs that rely on sustained attention work well in real-world contexts.</li>
+        <li><strong>(MC)</strong> Motor control constraints include all EXCEPT:
+          <ol class="options">
+            <li>Accidental actions</li>
+            <li>Difficulty with small targets</li>
+            <li>Imprecise movements</li>
+            <li>Forgetting passwords</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Most interaction problems are caused by designs that ______ human limitations.</li>
+        <li><strong>(T/F)</strong> Icons can be misinterpreted due to the influence of context and expectations on perception.</li>
+        <li><strong>(MC)</strong> Working memory issues are worst when:
+          <ol class="options">
+            <li>Using a single screen</li>
+            <li>Navigating across multiple screens</li>
+            <li>Using keyboard shortcuts</li>
+            <li>Looking at a splash screen</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Interaction occurs at the ______ between humans and computers.</li>
+        <li><strong>(T/F)</strong> Understanding users is the foundation of effective HCI.</li>
+        <li><strong>(MC)</strong> Which of these is NOT listed as a human limitation in this lecture?
+          <ol class="options">
+            <li>Limited memory</li>
+            <li>Limited attention</li>
+            <li>Unlimited perception</li>
+            <li>Variable motor control</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> A system that assumes unlimited memory and constant attention will cause ______ problems.</li>
+        <li><strong>(T/F)</strong> In HCI, repeated user errors should prompt an examination of the system, not the user.</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>B</strong> — A design limitation</li>
+          <li><strong>False</strong> — Limitations are normal, expected, and shared</li>
+          <li><strong>Action</strong></li>
+          <li><strong>B</strong> — Cognitive load</li>
+          <li><strong>False</strong> — There is no single average user</li>
+          <li><strong>perceived</strong></li>
+          <li><strong>B</strong> — Attention constraints</li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Human limitation → Interaction difficulty → Usability problem</li>
+          <li><strong>capabilities</strong></li>
+          <li><strong>False</strong> — They often fail in real-world contexts</li>
+          <li><strong>D</strong> — Forgetting passwords is a memory constraint, not motor</li>
+          <li><strong>ignore</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Navigating across multiple screens</li>
+          <li><strong>boundary</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>C</strong> — Perception is limited, not unlimited</li>
+          <li><strong>interaction</strong></li>
+          <li><strong>True</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 5 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch5">
+  <div class="chapter-header">
+    <div class="chapter-num">5</div>
+    <h2>User-Centered Design Process</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>1. What Is User-Centered Design (UCD)?</h3>
+    <p><strong>User-Centered Design</strong> places the user at the center of the design process. Instead of starting with technology or features, UCD begins with understanding <strong>users, their tasks, and their context</strong>. The goal: build a system that works <strong>for the user</strong>.</p>
+
+    <h3>2. Why UCD Matters</h3>
+    <p>Systems often fail not because they are technically incorrect, but because they <strong>do not align with user needs</strong>. UCD helps:</p>
+    <ul>
+      <li>Reduce <strong>usability problems</strong></li>
+      <li>Improve <strong>user satisfaction</strong></li>
+      <li>Align system behavior with <strong>human capabilities</strong></li>
+    </ul>
+    <div class="key"><strong>Key:</strong> "A design that is not based on user understanding is likely to fail, regardless of how technically correct it is."</div>
+
+    <h3>3. Core Principle of UCD</h3>
+    <p>Users should be involved <strong>throughout</strong> the design process — not limited to a single stage. This includes observing users, gathering feedback, and evaluating designs with them.</p>
+
+    <h3>4. The UCD Process (Conceptual Cycle)</h3>
+    <p>A repeating cycle of four key activities:</p>
+    <ol>
+      <li><strong>Identifying user needs and requirements</strong></li>
+      <li><strong>Exploring alternative design solutions</strong></li>
+      <li><strong>Developing prototypes</strong></li>
+      <li><strong>Evaluating designs with users</strong></li>
+    </ol>
+    <div class="key"><strong>Key:</strong> "Design evolves through iteration, not through a single correct solution." "Prototypes are not final solutions, but tools for exploring and refining ideas."</div>
+
+    <h3>5. Why Alternatives Matter</h3>
+    <p>Considering <strong>multiple design alternatives</strong> prevents premature decisions, encourages exploration, and supports stronger design reasoning. A single early idea is <strong>rarely the best</strong>.</p>
+
+    <h3>6. Understanding Users, Tasks, and Context</h3>
+    <table>
+      <tr><th>Element</th><th>What to Understand</th></tr>
+      <tr><td><strong>Users</strong></td><td>Who they are, what they want to achieve, what challenges they face</td></tr>
+      <tr><td><strong>Tasks</strong></td><td>Goals, actions</td></tr>
+      <tr><td><strong>Context</strong></td><td>Physical environment, device constraints, social factors, time pressure</td></tr>
+    </table>
+
+    <h3>7. Evaluation in UCD</h3>
+    <p>Evaluation must be <strong>continuous</strong>. It provides feedback that drives the next design iteration and helps identify interaction problems.</p>
+
+    <h3>8. Key Takeaways</h3>
+    <ul>
+      <li>Design should <strong>start with users</strong></li>
+      <li>Design is <strong>iterative and cyclical</strong></li>
+      <li>Multiple design <strong>alternatives are essential</strong></li>
+      <li>Prototypes support <strong>exploration and refinement</strong></li>
+      <li>Evaluation <strong>drives improvement</strong></li>
+      <li>Design <strong>balances</strong> user needs and system constraints</li>
+    </ul>
+
+    <div class="concept-link"><strong>Concept Link:</strong> UCD is the practical application of L1's "Know Thy User" and L4's constraints. The UCD cycle directly feeds into <strong>L6 (User Research)</strong> for requirements gathering, <strong>L7 (Prototyping)</strong> for exploring alternatives, and <strong>L8 (Usability Testing)</strong> for evaluation. Context understanding here connects to <strong>L9 (Real-World Contexts)</strong>.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 5 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> UCD begins with understanding:
+          <ol class="options">
+            <li>The latest technology trends</li>
+            <li>Users, their tasks, and their context</li>
+            <li>Competitor products</li>
+            <li>Marketing strategies</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> In UCD, a single early idea is usually the best solution.</li>
+        <li><strong>(Fill)</strong> The UCD process is a repeating ______ of four key activities.</li>
+        <li><strong>(MC)</strong> Which is NOT one of the four UCD activities?
+          <ol class="options">
+            <li>Identifying user needs</li>
+            <li>Exploring alternatives</li>
+            <li>Writing documentation</li>
+            <li>Evaluating designs with users</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Users should be involved only during the final testing stage.</li>
+        <li><strong>(Fill)</strong> "A design that is not based on ______ understanding is likely to fail."</li>
+        <li><strong>(MC)</strong> Context in UCD includes:
+          <ol class="options">
+            <li>Only the device used</li>
+            <li>Physical environment, device constraints, social factors, and time pressure</li>
+            <li>Only the user's age</li>
+            <li>Only the operating system</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Prototypes in UCD are final solutions ready for deployment.</li>
+        <li><strong>(MC)</strong> Why do multiple design alternatives matter?
+          <ol class="options">
+            <li>They increase development costs</li>
+            <li>They prevent premature decisions and encourage exploration</li>
+            <li>They confuse stakeholders</li>
+            <li>They are required by law</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Design evolves through ______, not through a single correct solution.</li>
+        <li><strong>(T/F)</strong> Evaluation in UCD is a one-time activity done at the end.</li>
+        <li><strong>(MC)</strong> Systems often fail because:
+          <ol class="options">
+            <li>The technology is too advanced</li>
+            <li>They do not align with user needs</li>
+            <li>Users are not smart enough</li>
+            <li>The code has too many lines</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Design balances user needs and ______ constraints.</li>
+        <li><strong>(T/F)</strong> Understanding users, tasks, and context provides the foundation that informs every stage of the design process.</li>
+        <li><strong>(MC)</strong> The "Tasks" element in UCD refers to:
+          <ol class="options">
+            <li>The designer's to-do list</li>
+            <li>User goals and actions</li>
+            <li>Server tasks</li>
+            <li>Scheduled maintenance</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> UCD helps reduce usability problems and improve user ______.</li>
+        <li><strong>(T/F)</strong> Design decisions in UCD must also consider technical constraints and system feasibility.</li>
+        <li><strong>(MC)</strong> The core principle of UCD is:
+          <ol class="options">
+            <li>Automation over user involvement</li>
+            <li>Users involved throughout the design process</li>
+            <li>Minimal user testing</li>
+            <li>Feature-driven development</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Evaluation provides feedback that drives the next design ______.</li>
+        <li><strong>(T/F)</strong> Students in this course are expected to justify design decisions based on user understanding, not assumptions.</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>B</strong> — Users, tasks, and context</li>
+          <li><strong>False</strong> — A single early idea is rarely the best</li>
+          <li><strong>cycle</strong></li>
+          <li><strong>C</strong> — Writing documentation</li>
+          <li><strong>False</strong> — Throughout the design process</li>
+          <li><strong>user</strong></li>
+          <li><strong>B</strong> — Physical environment, device constraints, social factors, time pressure</li>
+          <li><strong>False</strong> — Prototypes are tools for exploring and refining</li>
+          <li><strong>B</strong> — Prevent premature decisions</li>
+          <li><strong>iteration</strong></li>
+          <li><strong>False</strong> — Evaluation must be continuous</li>
+          <li><strong>B</strong> — They do not align with user needs</li>
+          <li><strong>system</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — User goals and actions</li>
+          <li><strong>satisfaction</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Users involved throughout</li>
+          <li><strong>iteration</strong></li>
+          <li><strong>True</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 6 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch6">
+  <div class="chapter-header">
+    <div class="chapter-num">6</div>
+    <h2>User Research</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>1. What Is User Research?</h3>
+    <p><strong>User research</strong> refers to methods used to understand users, their behavior, needs, and interaction with systems. It includes <strong>Data Gathering</strong> — systematically collecting information about users. Its purpose is to <strong>inform and justify design decisions</strong>.</p>
+
+    <h3>2. Why User Research Matters</h3>
+    <p>Designing without research leads to incorrect assumptions, misaligned features, and poor usability. Design decisions should be based on <strong>data, not intuition or guesses</strong>.</p>
+
+    <h3>3. Common Data Gathering Techniques</h3>
+    <table>
+      <tr><th>Technique</th><th>Characteristics</th><th>Captures</th></tr>
+      <tr><td><strong>Interviews</strong></td><td>Flexible, in-depth, qualitative</td><td>What users <strong>say</strong></td></tr>
+      <tr><td><strong>Questionnaires</strong></td><td>Scalable, quantifiable, limited depth</td><td>Broad patterns</td></tr>
+      <tr><td><strong>Observation</strong></td><td>Captures real behavior, reveals hidden issues, time-consuming</td><td>What users <strong>actually do</strong></td></tr>
+      <tr><td><strong>Field Studies</strong></td><td>Real context, rich data, less control</td><td>Real-world behavior</td></tr>
+    </table>
+    <div class="key"><strong>Key "Say" vs. "Do":</strong> Interviews capture what users <strong>say</strong>; Observation captures what users <strong>actually do</strong>. Users may not accurately describe their behavior.</div>
+
+    <h3>4. Task Analysis</h3>
+    <p>Focuses on understanding user <strong>goals, steps, and workflows</strong>. Includes breaking tasks into structured steps and analyzing relationships.</p>
+
+    <h3>5. Personas</h3>
+    <p><strong>Personas</strong> are fictional representations of users based on <strong>real data</strong>. They capture goals, behaviors, skills, and context. Personas should be based on <strong>real user data, not assumptions</strong>.</p>
+
+    <h3>6. Types of Data</h3>
+    <table>
+      <tr><th>Type</th><th>Explains</th></tr>
+      <tr><td><strong>Qualitative</strong></td><td>Why behavior occurs</td></tr>
+      <tr><td><strong>Quantitative</strong></td><td>How often behavior occurs</td></tr>
+    </table>
+
+    <h3>7. Planning User Research</h3>
+    <p>Includes: defining goals, selecting techniques, identifying participants, and defining clear tasks.</p>
+
+    <h3>8. Participants and Sampling</h3>
+    <p>Select <strong>representative users</strong>. A small number of carefully selected participants can provide valuable insights.</p>
+
+    <h3>9. Combining Techniques (Triangulation)</h3>
+    <p>Using <strong>multiple techniques</strong> improves reliability and reduces bias.</p>
+
+    <h3>10. Data Collection Settings</h3>
+    <table>
+      <tr><th>Setting</th><th>Advantage</th></tr>
+      <tr><td><strong>Field</strong> (real-world)</td><td>Realism</td></tr>
+      <tr><td><strong>Lab</strong> (controlled)</td><td>Precision</td></tr>
+    </table>
+
+    <h3>11. From Data to Insight</h3>
+    <p>Raw data must be organized, interpreted, and analyzed to reveal <strong>meaningful patterns</strong> that inform design.</p>
+
+    <h3>12. User Research vs. Usability Testing</h3>
+    <ul>
+      <li><strong>User research</strong> = understanding users (before/during design)</li>
+      <li><strong>Usability testing</strong> = evaluating designs (during/after design)</li>
+    </ul>
+
+    <div class="concept-link"><strong>Concept Link:</strong> User research is the "Identifying needs" stage of the <strong>L5 UCD cycle</strong>. Techniques like interviews and observation inform the creation of <strong>L7 Prototypes</strong>. Personas connect to L4's principle that there is no average user. Triangulation improves the reliability of data used in <strong>L8 (Usability Testing)</strong>.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 6 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> What is the primary purpose of user research?
+          <ol class="options">
+            <li>To validate marketing claims</li>
+            <li>To inform and justify design decisions</li>
+            <li>To test code quality</li>
+            <li>To replace prototyping</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Observation captures what users say about their behavior.</li>
+        <li><strong>(Fill)</strong> The "Say" vs. "Do" distinction means interviews capture what users say, while ______ captures what users actually do.</li>
+        <li><strong>(MC)</strong> Personas should be based on:
+          <ol class="options">
+            <li>Designer assumptions</li>
+            <li>Real user data</li>
+            <li>Competitor analysis</li>
+            <li>Random selection</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Quantitative data explains why behavior occurs.</li>
+        <li><strong>(Fill)</strong> Using multiple techniques to improve reliability is called ______.</li>
+        <li><strong>(MC)</strong> Which technique is best for collecting in-depth qualitative data?
+          <ol class="options">
+            <li>Questionnaires</li>
+            <li>Interviews</li>
+            <li>A/B testing</li>
+            <li>Analytics</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Field studies provide more control than lab studies.</li>
+        <li><strong>(MC)</strong> Task analysis focuses on:
+          <ol class="options">
+            <li>Visual design elements</li>
+            <li>User goals, steps, and workflows</li>
+            <li>Color schemes</li>
+            <li>Database structures</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Design decisions should be based on ______, not intuition or guesses.</li>
+        <li><strong>(T/F)</strong> User research and usability testing are the same thing.</li>
+        <li><strong>(MC)</strong> Which data gathering setting provides realism?
+          <ol class="options">
+            <li>Lab</li>
+            <li>Field</li>
+            <li>Simulation</li>
+            <li>Classroom</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Personas capture goals, behaviors, skills, and ______.</li>
+        <li><strong>(T/F)</strong> A small number of carefully selected participants can provide valuable insights.</li>
+        <li><strong>(MC)</strong> Questionnaires are characterized by:
+          <ol class="options">
+            <li>Deep qualitative insight</li>
+            <li>Scalability and quantifiable results but limited depth</li>
+            <li>Observing real behavior</li>
+            <li>Being only useful in lab settings</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Raw data must reveal meaningful ______ to inform design.</li>
+        <li><strong>(T/F)</strong> Designing without user research often leads to incorrect assumptions.</li>
+        <li><strong>(MC)</strong> When is user research used in the design process?
+          <ol class="options">
+            <li>Only at the beginning</li>
+            <li>Only at the end</li>
+            <li>Before, during, and after design</li>
+            <li>Never during prototyping</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Qualitative data explains ______ behavior occurs; quantitative data explains how often.</li>
+        <li><strong>(T/F)</strong> Users always accurately describe their own behavior in interviews.</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>B</strong> — Inform and justify design decisions</li>
+          <li><strong>False</strong> — Observation captures what users actually do</li>
+          <li><strong>observation</strong></li>
+          <li><strong>B</strong> — Real user data</li>
+          <li><strong>False</strong> — Qualitative explains why; quantitative explains how often</li>
+          <li><strong>triangulation</strong></li>
+          <li><strong>B</strong> — Interviews</li>
+          <li><strong>False</strong> — Field provides realism but less control</li>
+          <li><strong>B</strong> — User goals, steps, and workflows</li>
+          <li><strong>data</strong></li>
+          <li><strong>False</strong> — Research = understanding users; Testing = evaluating designs</li>
+          <li><strong>B</strong> — Field</li>
+          <li><strong>context</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Scalable, quantifiable, limited depth</li>
+          <li><strong>patterns</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>C</strong> — Before, during, and after design</li>
+          <li><strong>why</strong></li>
+          <li><strong>False</strong> — Users may not accurately describe their behavior</li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 7 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch7">
+  <div class="chapter-header">
+    <div class="chapter-num">7</div>
+    <h2>Prototyping</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>1. What Is a Prototype?</h3>
+    <p>A prototype is an <strong>early and simplified version</strong> of a system used to <strong>explore, test, and communicate</strong> design ideas. It is NOT the final product — it's a <strong>thinking and testing tool</strong>.</p>
+
+    <h3>2. Why Prototyping Matters</h3>
+    <ul>
+      <li>Detect <strong>usability problems early</strong></li>
+      <li>Explore <strong>alternative solutions</strong></li>
+      <li>Reduce <strong>development cost</strong> and risk</li>
+      <li>Improve <strong>communication</strong> between designers and stakeholders</li>
+    </ul>
+    <div class="key"><strong>Key:</strong> "Prototyping reduces risk by testing ideas before full implementation." "Prototyping allows designers to fail early and learn from mistakes."</div>
+
+    <h3>3. Prototyping in the Design Process</h3>
+    <p>Central part of <strong>iterative design</strong>: understand users → create prototype → evaluate → refine. Iteration may lead to minor improvements or <strong>complete redesign</strong>.</p>
+
+    <h3>4. Prototypes as Thinking Tools</h3>
+    <p>Not only for presenting ideas, but for <strong>thinking through design problems</strong>. Early prototypes are often <strong>messy and incomplete</strong> — this is expected.</p>
+
+    <h3>5. Prototype Dimensions</h3>
+    <table>
+      <tr><th>Dimension</th><th>Describes</th></tr>
+      <tr><td><strong>Fidelity</strong></td><td>How detailed the prototype is</td></tr>
+      <tr><td><strong>Type</strong></td><td>Why we are building it</td></tr>
+      <tr><td><strong>Structure</strong></td><td>How much of the system we cover</td></tr>
+    </table>
+
+    <h3>6. Fidelity in Prototyping</h3>
+    <table>
+      <tr><th>Level</th><th>Description</th><th>When Used</th></tr>
+      <tr><td><strong>Low-Fidelity</strong></td><td>Simple, rough: sketches, paper prototypes, storyboards. Fast, flexible, easy to modify.</td><td>Early stages to explore ideas</td></tr>
+      <tr><td><strong>High-Fidelity</strong></td><td>Detailed, realistic, interactive, visually refined. Closer to final system.</td><td>Later stages for testing</td></tr>
+    </table>
+    <div class="key"><strong>Warning:</strong> High-fidelity prototypes may give users the impression the system is complete, which can <strong>affect feedback quality</strong>.</div>
+
+    <h4>Storyboards</h4>
+    <p>Represent how interaction unfolds over time. Useful for understanding <strong>user journeys and scenarios</strong>.</p>
+
+    <h3>7. Types of Prototypes by Purpose</h3>
+    <table>
+      <tr><th>Type</th><th>Purpose</th></tr>
+      <tr><td><strong>Exploratory</strong></td><td>Generate ideas and explore alternatives (early stage)</td></tr>
+      <tr><td><strong>Experimental</strong></td><td>Test specific concepts or design decisions</td></tr>
+      <tr><td><strong>Evolutionary</strong></td><td>Refined over time; may evolve into the final system</td></tr>
+      <tr><td><strong>Throwaway</strong></td><td>Created quickly and discarded after use</td></tr>
+    </table>
+
+    <h3>8. Horizontal vs. Vertical Prototypes</h3>
+    <table>
+      <tr><th>Type</th><th>Coverage</th><th>Purpose</th></tr>
+      <tr><td><strong>Horizontal</strong></td><td>Many features, shallow interaction</td><td>Exploring system structure</td></tr>
+      <tr><td><strong>Vertical</strong></td><td>One feature, deep interaction</td><td>Testing specific functionality</td></tr>
+    </table>
+
+    <h3>9. Choosing the Right Prototype</h3>
+    <p>Depends on: <strong>stage, goal, scope, and constraints</strong> (time, cost, tools). Early → low-fidelity; later → high-fidelity.</p>
+
+    <h3>10. Trade-offs in Prototyping</h3>
+    <p>Low-fi: fast, flexible but less realistic. High-fi: realistic but time-consuming. Designers must <strong>balance speed vs. realism</strong>.</p>
+
+    <h3>11. Common Mistakes</h3>
+    <ul>
+      <li>Treating prototypes as <strong>final designs</strong></li>
+      <li>Adding too much <strong>detail too early</strong></li>
+      <li><strong>Skipping</strong> low-fidelity stages</li>
+      <li><strong>Ignoring feedback</strong></li>
+      <li>Failing to <strong>iterate</strong></li>
+    </ul>
+
+    <div class="concept-link"><strong>Concept Link:</strong> Prototyping is the third activity in L5's UCD cycle. Prototypes should address <strong>L4's human constraints</strong> (e.g., testing whether navigation overloads working memory). They are based on insights from <strong>L6 (User Research)</strong> and are evaluated using methods from <strong>L8 (Usability Testing)</strong>. Low-fidelity prototypes help test L3's guidelines before committing to code.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 7 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> A prototype is best described as:
+          <ol class="options">
+            <li>The final product ready for release</li>
+            <li>An early, simplified version used to explore, test, and communicate ideas</li>
+            <li>A marketing mockup</li>
+            <li>A copy of a competitor's product</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> High-fidelity prototypes should always be used from the start of a project.</li>
+        <li><strong>(Fill)</strong> ______ prototypes are created quickly and discarded after use.</li>
+        <li><strong>(MC)</strong> A horizontal prototype covers:
+          <ol class="options">
+            <li>One feature deeply</li>
+            <li>Many features with shallow interaction</li>
+            <li>Only the database layer</li>
+            <li>Only the user interface colors</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Storyboards represent how interaction unfolds over time.</li>
+        <li><strong>(Fill)</strong> The three dimensions of prototypes are Fidelity, Type, and ______.</li>
+        <li><strong>(MC)</strong> Which is a common prototyping mistake?
+          <ol class="options">
+            <li>Starting with low-fidelity prototypes</li>
+            <li>Getting user feedback early</li>
+            <li>Adding too much detail too early</li>
+            <li>Iterating based on feedback</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Prototyping eliminates all design risks.</li>
+        <li><strong>(MC)</strong> Which type of prototype is refined over time and may become the final system?
+          <ol class="options">
+            <li>Throwaway</li>
+            <li>Exploratory</li>
+            <li>Evolutionary</li>
+            <li>Experimental</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Prototyping allows designers to fail ______ and learn from mistakes.</li>
+        <li><strong>(T/F)</strong> Low-fidelity prototypes are realistic but time-consuming.</li>
+        <li><strong>(MC)</strong> What is the purpose of an experimental prototype?
+          <ol class="options">
+            <li>Explore broad ideas</li>
+            <li>Test specific concepts or design decisions</li>
+            <li>Create the final product</li>
+            <li>Replace user research</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Prototypes are not final solutions, but tools for ______ and refining ideas.</li>
+        <li><strong>(T/F)</strong> Early prototypes are expected to be messy and incomplete.</li>
+        <li><strong>(MC)</strong> High-fidelity prototypes can affect feedback quality because:
+          <ol class="options">
+            <li>They are too simple</li>
+            <li>They give users the impression the system is complete</li>
+            <li>They are never interactive</li>
+            <li>They lack any visual design</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> A ______ prototype focuses on one feature with deep interaction.</li>
+        <li><strong>(T/F)</strong> Choosing the right prototype depends on stage, goal, scope, and constraints.</li>
+        <li><strong>(MC)</strong> Prototyping is central to which type of design process?
+          <ol class="options">
+            <li>Waterfall</li>
+            <li>Iterative design</li>
+            <li>Big-bang deployment</li>
+            <li>Code-first development</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Prototypes should be based on insights gained from user ______ and task analysis.</li>
+        <li><strong>(T/F)</strong> Designers often create multiple prototypes before selecting the most effective solution.</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>B</strong> — Early, simplified version for exploring/testing</li>
+          <li><strong>False</strong> — Start with low-fidelity</li>
+          <li><strong>Throwaway</strong></li>
+          <li><strong>B</strong> — Many features, shallow interaction</li>
+          <li><strong>True</strong></li>
+          <li><strong>Structure</strong></li>
+          <li><strong>C</strong> — Adding too much detail too early</li>
+          <li><strong>False</strong> — It reduces risk but doesn't eliminate it</li>
+          <li><strong>C</strong> — Evolutionary</li>
+          <li><strong>early</strong></li>
+          <li><strong>False</strong> — Low-fi is fast and flexible but less realistic</li>
+          <li><strong>B</strong> — Test specific concepts or design decisions</li>
+          <li><strong>exploring</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Impression the system is complete</li>
+          <li><strong>vertical</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Iterative design</li>
+          <li><strong>research</strong></li>
+          <li><strong>True</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 8 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch8">
+  <div class="chapter-header">
+    <div class="chapter-num">8</div>
+    <h2>Usability Principles and Testing</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>1. Usability and System Failure</h3>
+    <p>Repeated user errors are indicators of <strong>design limitations</strong>, not user failure. A system may work correctly technically yet fail to support users in practice.</p>
+    <div class="key"><strong>Key:</strong> When multiple users encounter the same difficulty, the <strong>system</strong> should be examined before blaming users.</div>
+
+    <h3>2. Defining Usability</h3>
+    <p>Usability = the extent to which a system enables users to achieve goals <strong>effectively</strong>, <strong>efficiently</strong>, and with <strong>satisfaction</strong>.</p>
+    <p>These three dimensions are <strong>distinct</strong>: a system can be effective but inefficient, or efficient but unsatisfying.</p>
+    <div class="formula">Usability = Effectiveness + Efficiency + Satisfaction</div>
+    <div class="key"><strong>Key:</strong> Successful task completion alone does not guarantee usability.</div>
+
+    <h3>3. User Behavior and Expectations</h3>
+    <p>Users rely on <strong>learned patterns of attention</strong> and <strong>mental models</strong> from prior experience. Users look where they <strong>expect</strong> information — not where it actually exists.</p>
+
+    <h3>4. Usability Testing</h3>
+    <p>Observe users performing <strong>realistic tasks</strong>. Minimize evaluator interference to allow <strong>authentic behavior</strong> to emerge.</p>
+
+    <h3>5. Characteristics of User Behavior</h3>
+    <p>Users rely on <strong>heuristics</strong>, act under <strong>time pressure</strong>, and make decisions based on <strong>incomplete information</strong>. Fast interaction ≠ correct decisions.</p>
+
+    <h3>6. Evidence-Based Evaluation</h3>
+    <p>Evaluation should be grounded in <strong>observable behavior</strong> rather than subjective opinion. Observable behavior enables <strong>actionable</strong> design decisions.</p>
+
+    <h3>7. Identifying Underlying Problems</h3>
+    <p>Visible issues are often <strong>symptoms</strong>; underlying causes shape user errors. Root-cause analysis is essential.</p>
+
+    <h3>8. Design Decisions and Trade-offs</h3>
+    <p>Adding features may increase functionality but also complexity. Effective design prioritizes <strong>clarity</strong>.</p>
+    <div class="key"><strong>Key:</strong> Solve the <strong>real problem</strong>, not the surface issue.</div>
+
+    <h3>9. Heuristic Principles</h3>
+    <p>General usability principles that guide design. <strong>Visibility</strong> is fundamental — if users can't perceive key information, they can't make effective decisions.</p>
+
+    <h3>10. Measuring Usability</h3>
+    <p>Metrics: <strong>success rate</strong>, <strong>time on task</strong>, <strong>errors</strong>, <strong>number of clicks</strong>.</p>
+    <div class="key"><strong>Key:</strong> Metrics describe <strong>what</strong>; observation explains <strong>why</strong>. Metrics are mainly quantitative data.</div>
+
+    <h3>11. System-Level Perspective</h3>
+    <p>Early-stage failures <strong>propagate</strong> and affect outcomes downstream. Usability emerges from interactions between system structure and user behavior.</p>
+
+    <h3>12. AI and Decision Support</h3>
+    <p>Poor usability → poor data → poor AI decisions. AI relies on user actions, not user intentions.</p>
+
+    <h3>13. Evaluating Design Improvements</h3>
+    <p><strong>A/B testing</strong> compares user behavior before and after changes. Small design adjustments often produce significant improvements.</p>
+
+    <h3>14. Limitations of Usability Testing</h3>
+    <p>Usability testing is <strong>not one-time</strong> — it's an <strong>ongoing, iterative process</strong>. Systems, users, and contexts change over time.</p>
+
+    <h3>15. Trade-offs in Design</h3>
+    <p>All design decisions involve trade-offs between <strong>simplicity and functionality</strong>.</p>
+
+    <h3>16. Core Principle</h3>
+    <div class="key"><strong>Key:</strong> A system succeeds when it aligns with <strong>user mental models</strong>. Errors occur due to poor support for decision-making, not missing functionality.</div>
+
+    <h3>17. Synthesis</h3>
+    <p>Heuristics <strong>guide</strong> design, testing <strong>validates</strong> it, and AI <strong>scales</strong> it. Systems should primarily adapt to users, but users may adapt in cases of safety, technical constraints, or standardization.</p>
+
+    <div class="concept-link"><strong>Concept Link:</strong> This lecture synthesizes many earlier concepts: L4's constraints explain <strong>why</strong> usability problems occur; L3's guidelines provide <strong>how</strong> to prevent them. A/B testing connects to L6's quantitative methods. The AI–usability connection here foreshadows <strong>L10 (AI Interaction)</strong> and <strong>L11 (Trust &amp; Ethics)</strong>. Mental models connect to L1's naturalness principle.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 8 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> Usability is defined as effectiveness + efficiency +:
+          <ol class="options">
+            <li>Aesthetics</li>
+            <li>Satisfaction</li>
+            <li>Speed</li>
+            <li>Complexity</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Successful task completion alone guarantees good usability.</li>
+        <li><strong>(Fill)</strong> Users look where they ______ information, not where it actually exists.</li>
+        <li><strong>(MC)</strong> Repeated user errors most likely indicate:
+          <ol class="options">
+            <li>Users need more training</li>
+            <li>Design limitations</li>
+            <li>Random technical glitches</li>
+            <li>Users are lazy</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> During usability testing, evaluator interference should be maximized.</li>
+        <li><strong>(Fill)</strong> Metrics describe what happened; ______ explains why.</li>
+        <li><strong>(MC)</strong> A/B testing is used to:
+          <ol class="options">
+            <li>Write code</li>
+            <li>Compare user behavior before and after design changes</li>
+            <li>Create personas</li>
+            <li>Design logos</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Fast interaction always means correct decisions.</li>
+        <li><strong>(MC)</strong> What does "visibility" as a heuristic principle mean?
+          <ol class="options">
+            <li>Making the system visible from far away</li>
+            <li>Key information must be perceivable for effective decisions</li>
+            <li>Using bright colors everywhere</li>
+            <li>Showing all features at once</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> A system succeeds when it aligns with user ______ models.</li>
+        <li><strong>(T/F)</strong> Usability testing is a one-time activity performed only before launch.</li>
+        <li><strong>(MC)</strong> Poor usability leads to poor AI decisions because:
+          <ol class="options">
+            <li>AI doesn't need user data</li>
+            <li>AI acts on user actions (poor data), not user intentions</li>
+            <li>AI is always correct regardless of input</li>
+            <li>Users always behave perfectly</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Effective design prioritizes ______ over adding features.</li>
+        <li><strong>(T/F)</strong> Observable behavior is more reliable than subjective opinion for evaluation.</li>
+        <li><strong>(MC)</strong> Early-stage usability failures:
+          <ol class="options">
+            <li>Are usually harmless</li>
+            <li>Propagate and affect downstream outcomes</li>
+            <li>Fix themselves</li>
+            <li>Only affect aesthetics</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> All design decisions involve trade-offs between simplicity and ______.</li>
+        <li><strong>(T/F)</strong> Heuristics guide design, while usability testing validates it.</li>
+        <li><strong>(MC)</strong> A system can be effective but:
+          <ol class="options">
+            <li>Also efficient — they are always linked</li>
+            <li>Inefficient or unsatisfying — dimensions are distinct</li>
+            <li>Never used</li>
+            <li>Perfect in every way</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Visible usability issues are often symptoms, while underlying ______ shape user errors.</li>
+        <li><strong>(T/F)</strong> Systems should primarily adapt to users to reduce cognitive load and support natural interaction.</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>B</strong> — Satisfaction</li>
+          <li><strong>False</strong> — It doesn't guarantee usability</li>
+          <li><strong>expect</strong></li>
+          <li><strong>B</strong> — Design limitations</li>
+          <li><strong>False</strong> — Minimize interference</li>
+          <li><strong>observation</strong></li>
+          <li><strong>B</strong> — Compare behavior before/after changes</li>
+          <li><strong>False</strong> — Fast ≠ correct</li>
+          <li><strong>B</strong> — Key information must be perceivable</li>
+          <li><strong>mental</strong></li>
+          <li><strong>False</strong> — It's ongoing and iterative</li>
+          <li><strong>B</strong> — AI acts on actions, not intentions</li>
+          <li><strong>clarity</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Propagate and affect downstream</li>
+          <li><strong>functionality</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Dimensions are distinct</li>
+          <li><strong>causes</strong></li>
+          <li><strong>True</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 9 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch9">
+  <div class="chapter-header">
+    <div class="chapter-num">9</div>
+    <h2>Human-Centered Systems in Real-World Contexts</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>Core Idea</h3>
+    <p>Usability depends on how well a system adapts to <strong>different users</strong> and the <strong>conditions</strong> in which it is used. A system cannot be evaluated in isolation — it must be evaluated in relation to <strong>who is using it</strong> and <strong>under what conditions</strong>.</p>
+
+    <h3>Three-Layer Structure</h3>
+    <table>
+      <tr><th>Layer</th><th>Focus</th></tr>
+      <tr><td><strong>Layer 1: Users</strong></td><td>Who is using the system</td></tr>
+      <tr><td><strong>Layer 2: Context</strong></td><td>Under what conditions</td></tr>
+      <tr><td><strong>Layer 3: System Response</strong></td><td>How the system reacts</td></tr>
+    </table>
+
+    <h3>Layer 1: Users</h3>
+    <h4>Diversity of Users</h4>
+    <p>Users differ in abilities, experience, goals, and expectations. Systems must support <strong>multiple levels of expertise</strong>.</p>
+
+    <h4>Accessibility and Inclusivity</h4>
+    <p><strong>Accessibility</strong> ensures users can interact; <strong>Inclusivity</strong> extends this to consider different backgrounds, experience levels, and expectations.</p>
+    <ul>
+      <li>Small text → increased reading difficulty</li>
+      <li>Complex layouts → increased confusion</li>
+    </ul>
+    <div class="key"><strong>Key Insight:</strong> Accessibility → Lower cognitive load → Better decisions</div>
+
+    <h3>Layer 2: Context</h3>
+    <h4>Context of Use</h4>
+    <p>Conditions: <strong>device, environment, and user attention</strong>. Desktop users may compare carefully; mobile users make quick decisions due to distraction.</p>
+    <div class="key"><strong>Key Insight:</strong> Context → Behavior → Decisions</div>
+
+    <h4>Mobile and Context Constraints</h4>
+    <p>Mobile introduces: limited screen space, reduced attention, time pressure. Design must support <strong>fast and low-effort decision-making</strong>.</p>
+
+    <h3>Layer 3: System Response</h3>
+    <h4>Feedback in Context</h4>
+    <p>Feedback answers: What happened? What is happening? What will happen next? Without feedback, users repeat actions → errors.</p>
+    <div class="key"><strong>Key Insight:</strong> Feedback → Reduces uncertainty → Increases confidence</div>
+
+    <h4>Errors and Recovery</h4>
+    <p>Errors are more likely when <strong>cognitive load increases</strong>. Prevent errors and support recovery (warnings before critical actions, easy correction).</p>
+    <div class="key"><strong>Key Insight:</strong> High cognitive load → More errors → Need recovery support</div>
+
+    <h3>Integration</h3>
+    <p><strong>User differences + Context conditions → Shape behavior → Influence decisions → Determine outcomes</strong></p>
+    <p>The system may remain unchanged, but results vary depending on who uses it and under what conditions.</p>
+
+    <h3>Core Concepts Summary</h3>
+    <ul>
+      <li>User differences affect <strong>interpretation</strong></li>
+      <li>Context changes <strong>behavior</strong></li>
+      <li>Feedback reduces <strong>uncertainty</strong></li>
+      <li>Errors increase under <strong>pressure</strong></li>
+    </ul>
+
+    <div class="concept-link"><strong>Concept Link:</strong> User diversity connects to L4's "no average user." Context of use is a key element in L5's UCD framework. Feedback and error recovery tie to L3's usability guidelines and L8's heuristic principles (visibility, error prevention). Accessibility connects to L3's WCAG principles. Mobile constraints inform <strong>L10 (Context-Aware AI)</strong>.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 9 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> Usability depends on:
+          <ol class="options">
+            <li>Only the technology used</li>
+            <li>How well the system adapts to different users and conditions</li>
+            <li>The color scheme</li>
+            <li>The number of features</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> A system can be evaluated in isolation, independent of its users.</li>
+        <li><strong>(Fill)</strong> The three layers in this lecture are Users, Context, and System ______.</li>
+        <li><strong>(MC)</strong> What is the difference between accessibility and inclusivity?
+          <ol class="options">
+            <li>They are the same</li>
+            <li>Accessibility ensures interaction; inclusivity extends to different backgrounds and expectations</li>
+            <li>Inclusivity only applies to mobile</li>
+            <li>Accessibility is about speed</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Context has no effect on user behavior or decisions.</li>
+        <li><strong>(Fill)</strong> Feedback answers: What happened? What is happening? What will happen ______?</li>
+        <li><strong>(MC)</strong> When do errors increase in interaction?
+          <ol class="options">
+            <li>When the system is too simple</li>
+            <li>When cognitive load increases</li>
+            <li>When the user is relaxed</li>
+            <li>When the screen is large</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Desktop users and mobile users behave identically.</li>
+        <li><strong>(MC)</strong> The chain of influence in this lecture is:
+          <ol class="options">
+            <li>Features → Marketing → Sales</li>
+            <li>User differences + Context → Behavior → Decisions → Outcomes</li>
+            <li>Code → Testing → Deployment</li>
+            <li>Colors → Fonts → Layout</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Accessibility leads to lower ______ load, which leads to better decisions.</li>
+        <li><strong>(T/F)</strong> Without feedback, users may feel uncertain and repeat actions.</li>
+        <li><strong>(MC)</strong> Mobile constraints include all EXCEPT:
+          <ol class="options">
+            <li>Limited screen space</li>
+            <li>Reduced attention</li>
+            <li>Unlimited processing time</li>
+            <li>Time pressure</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Design must support fast and ______-effort decision-making on mobile.</li>
+        <li><strong>(T/F)</strong> Design decisions should be validated through usability testing.</li>
+        <li><strong>(MC)</strong> Complex layouts increase:
+          <ol class="options">
+            <li>User satisfaction</li>
+            <li>Confusion</li>
+            <li>Accessibility</li>
+            <li>Speed</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Errors increase under ______ and distraction.</li>
+        <li><strong>(T/F)</strong> Systems must support multiple levels of expertise.</li>
+        <li><strong>(MC)</strong> Why is error recovery important?
+          <ol class="options">
+            <li>Errors never happen</li>
+            <li>Users need to undo mistakes, especially under high cognitive load</li>
+            <li>It makes the system slower</li>
+            <li>Only developers make errors</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> User differences affect interpretation; context changes ______.</li>
+        <li><strong>(T/F)</strong> Feedback reduces uncertainty and increases user confidence.</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>B</strong> — How well system adapts to users and conditions</li>
+          <li><strong>False</strong> — Must be evaluated in relation to who uses it and under what conditions</li>
+          <li><strong>Response</strong></li>
+          <li><strong>B</strong> — Accessibility ensures interaction; inclusivity extends further</li>
+          <li><strong>False</strong> — Context directly affects behavior and decisions</li>
+          <li><strong>next</strong></li>
+          <li><strong>B</strong> — When cognitive load increases</li>
+          <li><strong>False</strong> — Mobile users make quicker decisions due to constraints</li>
+          <li><strong>B</strong> — User differences + Context → Behavior → Decisions → Outcomes</li>
+          <li><strong>cognitive</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>C</strong> — Unlimited processing time is not a mobile constraint</li>
+          <li><strong>low</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Confusion</li>
+          <li><strong>pressure</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Users need to undo mistakes under high cognitive load</li>
+          <li><strong>behavior</strong></li>
+          <li><strong>True</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 10 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch10">
+  <div class="chapter-header">
+    <div class="chapter-num">10</div>
+    <h2>Designing AI Interaction</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>Purpose</h3>
+    <p>How AI changes interaction design. AI systems <strong>learn from users, make predictions, and influence decisions</strong> over time. The goal: understand <strong>how to design AI systems correctly</strong>.</p>
+
+    <h3>Case Study: AI Hiring System</h3>
+    <p>A company uses AI to recommend candidates based on past hiring data. The system prefers candidates from specific regions because of <strong>historical patterns</strong>, even though education has improved everywhere.</p>
+    <div class="key"><strong>Key:</strong> The system is not intentionally unfair — it learns from past data and <strong>reproduces patterns</strong>. The system appears correct, but its decisions may <strong>no longer reflect reality</strong>.</div>
+
+    <h3>Core Model of AI Interaction</h3>
+    <p>A continuous cycle:</p>
+    <ol>
+      <li><strong>Data</strong> (past behavior)</li>
+      <li><strong>Model</strong> (learned patterns)</li>
+      <li><strong>Output</strong> (recommendations)</li>
+      <li><strong>User Response</strong> (new behavior → becomes new data)</li>
+    </ol>
+    <p>Every design decision affects this cycle.</p>
+
+    <h3>Topic 1: AI-Driven Interfaces (Output Stage)</h3>
+    <p>AI <strong>suggests options before users act</strong> — the system is no longer neutral. Outputs define what users can consider.</p>
+    <ul>
+      <li><strong>Design rule:</strong> Support decisions, don't replace them</li>
+      <li><strong>Boundary:</strong> Don't fully automate when human judgment is important or outcomes have significant impact</li>
+      <li><strong>Consequence:</strong> Users lose awareness; important options disappear</li>
+    </ul>
+
+    <h3>Topic 2: Personalization (Model Stage)</h3>
+    <p>Personalization = filtering and prioritizing based on learned patterns. It improves efficiency but:</p>
+    <ul>
+      <li><strong>Reduces diversity</strong> — favors similar results</li>
+      <li><strong>Limits exploration</strong> — harder to discover new options</li>
+    </ul>
+    <div class="key"><strong>Design rule:</strong> Personalization must include exploration. Avoid strong personalization when diversity or comparison is needed.</div>
+
+    <h3>Topic 3: User Interaction with AI (Response Stage)</h3>
+    <p>Users accept, reject, or modify outputs. Risk: users may <strong>trust the system more than necessary</strong>.</p>
+    <ul>
+      <li>Allow <strong>override</strong></li>
+      <li>Provide <strong>multiple options</strong></li>
+      <li>Enable <strong>correction</strong></li>
+    </ul>
+    <div class="key"><strong>Critical Insight:</strong> The system may become <strong>"confidently wrong"</strong> — producing strong but incorrect outputs.</div>
+
+    <h3>Topic 4: Context and Change (Data Stage)</h3>
+    <p>Real-world conditions change. AI learns the <strong>past, not the present</strong>. Past data may not reflect current reality.</p>
+    <ul>
+      <li>Update data regularly</li>
+      <li>Monitor real-world changes</li>
+      <li>Adapt system behavior</li>
+      <li>Simplify interaction for mobile</li>
+    </ul>
+
+    <h3>Topic 5: Emerging Interaction Paradigms</h3>
+    <p>Interaction changes from <strong>navigation to communication</strong> (e.g., chatbots). But new interfaces don't fix underlying model problems.</p>
+    <table>
+      <tr><th>Interface Type</th><th>Best For</th></tr>
+      <tr><td><strong>Conversational</strong></td><td>Flexible, exploratory tasks</td></tr>
+      <tr><td><strong>Structured</strong></td><td>Precise tasks requiring comparison</td></tr>
+    </table>
+    <div class="key"><strong>Key Insight:</strong> AI systems do not only support decisions — they <strong>shape user behavior</strong> and future outcomes. They may reinforce outdated patterns, limit awareness, or produce confident but incorrect results.</div>
+
+    <div class="concept-link"><strong>Concept Link:</strong> The AI interaction cycle is an extension of L8's observation that poor usability → poor AI. Personalization connects to L4's perceptual constraints (users see only what's shown). Context and change build on L9's real-world context layer. User control requirements connect to L1's "Know Thy User" and L5's UCD principle. These topics lead directly into <strong>L11 (Trust, Ethics &amp; Error)</strong>.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 10 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> The core AI interaction cycle consists of:
+          <ol class="options">
+            <li>Plan, Build, Test, Deploy</li>
+            <li>Data, Model, Output, User Response</li>
+            <li>Input, Process, Output</li>
+            <li>Design, Code, Launch</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> AI systems learn from current data in real-time, so past data is never an issue.</li>
+        <li><strong>(Fill)</strong> Personalization improves efficiency but reduces ______ and limits exploration.</li>
+        <li><strong>(MC)</strong> "Confidently wrong" means:
+          <ol class="options">
+            <li>The system admits errors frequently</li>
+            <li>The system produces strong but incorrect outputs</li>
+            <li>Users are overconfident</li>
+            <li>The system never makes mistakes</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Changing the interface (e.g., to a chatbot) fixes underlying model problems.</li>
+        <li><strong>(Fill)</strong> The AI system should support decisions, not ______ them.</li>
+        <li><strong>(MC)</strong> Structured interfaces are best for:
+          <ol class="options">
+            <li>Casual browsing</li>
+            <li>Precise tasks requiring comparison and evaluation</li>
+            <li>Storytelling</li>
+            <li>Social media feeds</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Users should be able to override AI recommendations.</li>
+        <li><strong>(MC)</strong> In the AI hiring case study, the system is unfair because:
+          <ol class="options">
+            <li>It was programmed to be biased</li>
+            <li>It reproduces outdated patterns from past data</li>
+            <li>The hardware is faulty</li>
+            <li>Users deliberately manipulate it</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> AI learns the ______, not the present.</li>
+        <li><strong>(T/F)</strong> Every design decision affects the AI interaction cycle.</li>
+        <li><strong>(MC)</strong> What happens when the system controls all outputs?
+          <ol class="options">
+            <li>Users get better results</li>
+            <li>Users lose awareness and important options disappear</li>
+            <li>The system becomes more transparent</li>
+            <li>Nothing changes</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Choose the ______ style based on how structured the task is.</li>
+        <li><strong>(T/F)</strong> Strong personalization is always beneficial, even when diversity is needed.</li>
+        <li><strong>(MC)</strong> At the Output stage, the system:
+          <ol class="options">
+            <li>Collects raw data</li>
+            <li>Generates recommendations that influence what users see</li>
+            <li>Trains the model</li>
+            <li>Stores user passwords</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> AI systems do not only support decisions — they ______ user behavior and future outcomes.</li>
+        <li><strong>(T/F)</strong> Conversational interfaces are best for tasks requiring high precision.</li>
+        <li><strong>(MC)</strong> Avoid full automation when:
+          <ol class="options">
+            <li>Tasks are trivial</li>
+            <li>Human judgment is important and outcomes have significant impact</li>
+            <li>The system is fast</li>
+            <li>Users don't care about the result</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> AI systems may reinforce ______ patterns from past data.</li>
+        <li><strong>(T/F)</strong> The user's response to AI output becomes new data that feeds back into the cycle.</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>B</strong> — Data, Model, Output, User Response</li>
+          <li><strong>False</strong> — AI often relies on past data that may be outdated</li>
+          <li><strong>diversity</strong></li>
+          <li><strong>B</strong> — Strong but incorrect outputs</li>
+          <li><strong>False</strong> — New interfaces don't fix model problems</li>
+          <li><strong>replace</strong></li>
+          <li><strong>B</strong> — Precise tasks requiring comparison</li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Reproduces outdated patterns</li>
+          <li><strong>past</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Users lose awareness, options disappear</li>
+          <li><strong>interaction</strong></li>
+          <li><strong>False</strong> — Avoid when diversity is needed</li>
+          <li><strong>B</strong> — Generates recommendations</li>
+          <li><strong>shape</strong></li>
+          <li><strong>False</strong> — Conversational is for flexible tasks; structured for precision</li>
+          <li><strong>B</strong> — Human judgment important, significant outcomes</li>
+          <li><strong>outdated</strong></li>
+          <li><strong>True</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER 11 -->
+<!-- ============================================================ -->
+<section class="chapter" id="ch11">
+  <div class="chapter-header">
+    <div class="chapter-num">11</div>
+    <h2>Trust, Ethics, and Error in AI Interaction Systems</h2>
+  </div>
+  <div class="chapter-body">
+
+    <h3>Purpose</h3>
+    <p>How <strong>trust, ethics, and error</strong> influence AI interaction systems. Building on L10's AI cycle, these factors affect the entire Data → Model → Output → User cycle.</p>
+    <div class="key"><strong>Core Idea:</strong> AI systems must be designed to be <strong>trustworthy, fair, and reliable</strong>. They influence decisions and shape user behavior over time.</div>
+
+    <h3>1. Mental Models and Trust (User Stage)</h3>
+    <p>Users form expectations based on <strong>prior experience (mental models)</strong>. The system follows its own model based on data/algorithms. When these <strong>don't align → mismatch</strong>.</p>
+    <p>Consequences of mismatch:</p>
+    <ul>
+      <li><strong>Confusion</strong></li>
+      <li><strong>Reduced trust</strong></li>
+      <li><strong>Incorrect decisions</strong></li>
+      <li>Users may <strong>trust the system even when wrong</strong></li>
+    </ul>
+    <div class="key"><strong>Design rule:</strong> Support <strong>calibrated trust</strong>, not blind trust. Make system behavior understandable. Show how decisions are made.</div>
+
+    <h3>2. Context, Attention, and Fairness (Data Stage)</h3>
+    <p>Human attention is limited. In different contexts (mobile), users process information differently. This can lead to:</p>
+    <ul>
+      <li><strong>Biased decisions</strong></li>
+      <li><strong>Reduced fairness</strong></li>
+      <li><strong>Over-reliance</strong> on system outputs</li>
+    </ul>
+    <div class="key"><strong>Key:</strong> Fairness is not only a model property — it's also about <strong>how users interact</strong> with the system. Don't assume users have full attention.</div>
+
+    <h3>3. Errors and Uncertainty (Output Stage)</h3>
+    <p>AI can produce <strong>confident but incorrect results</strong>. Users may not be aware of uncertainty.</p>
+    <ul>
+      <li>Indicate <strong>confidence levels</strong></li>
+      <li>Show <strong>alternative options</strong></li>
+      <li>Allow users to <strong>question outputs</strong></li>
+    </ul>
+    <div class="key"><strong>Design rule:</strong> Do NOT present uncertain results as certain. Avoid hiding uncertainty or presenting outputs as absolute truths.</div>
+
+    <h3>4. Human–AI Interaction and Control (Response Stage)</h3>
+    <p>Users may accept system outputs <strong>without questioning</strong>. Over-automation reduces control.</p>
+    <ul>
+      <li>Allow <strong>override</strong></li>
+      <li>Provide <strong>multiple options</strong></li>
+      <li>Enable <strong>correction and feedback</strong></li>
+    </ul>
+    <div class="key"><strong>Design rule:</strong> Users must remain <strong>in control</strong> of decisions. Avoid full automation in high-impact decisions.</div>
+
+    <h3>5. Designing for Trustworthy AI (System-Level)</h3>
+    <p>Trust must be <strong>designed, not assumed</strong>. Design should support:</p>
+    <ul>
+      <li><strong>Transparency</strong> — explain system outputs</li>
+      <li><strong>Clarity</strong> — clear feedback</li>
+      <li><strong>User control</strong> — reduce ambiguity</li>
+      <li><strong>Error prevention</strong></li>
+    </ul>
+
+    <h3>6. Final Insights</h3>
+    <div class="key"><strong>Key:</strong> AI systems are not just tools. They shape what users <strong>see, think, and choose</strong>. Designing AI is not only about system performance — it's about supporting <strong>human understanding, fairness, trust, and responsible decision-making</strong>.</div>
+    <p><strong>Key Risks:</strong></p>
+    <ul>
+      <li>Reinforce <strong>outdated patterns</strong></li>
+      <li><strong>Limit awareness</strong> — users may not realize options are hidden</li>
+      <li>Produce <strong>confident but incorrect</strong> results</li>
+    </ul>
+
+    <h3>Structured vs. Conversational (Revisited)</h3>
+    <p>Structured interfaces (tables, filters, comparisons) support clearer, more consistent, and more confident decisions than conversational interfaces for evaluation tasks.</p>
+
+    <div class="concept-link"><strong>Concept Link:</strong> Trust/mental models tie to L1's naturalness and L8's alignment with user thinking. Fairness extends L9's user diversity and context layers. Error handling connects to L3's "Prevent Errors" guideline and L9's error recovery. The complete AI cycle (L10 + L11) synthesizes the course: L4's constraints → L5's UCD → L6's research → L7's prototyping → L8's testing → L9's context → L10–11's AI design.</div>
+
+    <!-- QUIZ -->
+    <div class="quiz">
+      <h3>📝 Chapter 11 Quiz — 20 Questions</h3>
+      <ol>
+        <li><strong>(MC)</strong> "Calibrated trust" means:
+          <ol class="options">
+            <li>Trusting the system completely</li>
+            <li>Never trusting the system</li>
+            <li>Trust that matches actual system reliability</li>
+            <li>Trust based on brand reputation only</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Trust in AI systems is automatic and does not need to be designed.</li>
+        <li><strong>(Fill)</strong> AI systems must be designed to be trustworthy, fair, and ______.</li>
+        <li><strong>(MC)</strong> A mismatch between user mental models and system behavior leads to:
+          <ol class="options">
+            <li>Better performance</li>
+            <li>Confusion, reduced trust, incorrect decisions</li>
+            <li>Faster interaction</li>
+            <li>Increased satisfaction</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Fairness is only a property of the AI model, not of user interaction.</li>
+        <li><strong>(Fill)</strong> Do NOT present ______ results as certain.</li>
+        <li><strong>(MC)</strong> Over-automation in AI systems causes:
+          <ol class="options">
+            <li>Better user control</li>
+            <li>More transparency</li>
+            <li>Reduced user control and awareness</li>
+            <li>Fewer system errors</li>
+          </ol>
+        </li>
+        <li><strong>(T/F)</strong> Users may trust confident AI outputs even when they are incorrect.</li>
+        <li><strong>(MC)</strong> Trustworthy AI design includes all EXCEPT:
+          <ol class="options">
+            <li>Transparency</li>
+            <li>User control</li>
+            <li>Error prevention</li>
+            <li>Hiding system logic</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Trust must be ______, not assumed.</li>
+        <li><strong>(T/F)</strong> Context affects how fairly users interact with AI systems.</li>
+        <li><strong>(MC)</strong> AI systems shape:
+          <ol class="options">
+            <li>Only technical outputs</li>
+            <li>What users see, think, and choose</li>
+            <li>Only hardware performance</li>
+            <li>Only aesthetic appeal</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Users must remain in ______ of decisions when interacting with AI.</li>
+        <li><strong>(T/F)</strong> Indicating confidence levels helps users evaluate AI outputs.</li>
+        <li><strong>(MC)</strong> The AI hiring system example demonstrates:
+          <ol class="options">
+            <li>AI is always fair</li>
+            <li>Past data can produce unfair outcomes even without intentional bias</li>
+            <li>AI doesn't need data</li>
+            <li>Users always detect errors</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> AI systems may limit user ______ by hiding relevant options.</li>
+        <li><strong>(T/F)</strong> Structured interfaces support clearer decisions than conversational interfaces for evaluation tasks.</li>
+        <li><strong>(MC)</strong> Good AI interaction design helps users remain:
+          <ol class="options">
+            <li>Passive and trusting</li>
+            <li>Aware, informed, and in control</li>
+            <li>Dependent on the system</li>
+            <li>Uninvolved in decisions</li>
+          </ol>
+        </li>
+        <li><strong>(Fill)</strong> Designing AI systems is about supporting human understanding, fairness, ______, and responsible decision-making.</li>
+        <li><strong>(T/F)</strong> The trust, ethics, and error concepts in L11 affect the entire AI interaction cycle (Data → Model → Output → User).</li>
+      </ol>
+      <details>
+        <summary>Click to Reveal Answers</summary>
+        <ol class="answer-list">
+          <li><strong>C</strong> — Trust matching actual system reliability</li>
+          <li><strong>False</strong> — Trust must be designed</li>
+          <li><strong>reliable</strong></li>
+          <li><strong>B</strong> — Confusion, reduced trust, incorrect decisions</li>
+          <li><strong>False</strong> — Fairness also depends on how users interact</li>
+          <li><strong>uncertain</strong></li>
+          <li><strong>C</strong> — Reduced user control and awareness</li>
+          <li><strong>True</strong></li>
+          <li><strong>D</strong> — Hiding system logic</li>
+          <li><strong>designed</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — What users see, think, and choose</li>
+          <li><strong>control</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Past data can produce unfair outcomes</li>
+          <li><strong>awareness</strong></li>
+          <li><strong>True</strong></li>
+          <li><strong>B</strong> — Aware, informed, and in control</li>
+          <li><strong>trust</strong></li>
+          <li><strong>True</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<script>
+// Progress bar
+const fill = document.getElementById('progressFill');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  fill.style.width = pct + '%';
+});
+
+// Back to top
+const btn = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  btn.classList.toggle('show', window.scrollY > 400);
+});
+
+// Active sidebar link
+const links = document.querySelectorAll('.sidebar nav a');
+const chapters = document.querySelectorAll('.chapter');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.sidebar nav a[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -60% 0px' });
+chapters.forEach(ch => observer.observe(ch));
+
+// Close sidebar on mobile when clicking a link
+links.forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 900) {
+      document.querySelector('.sidebar').classList.remove('open');
+    }
+  });
+});
+</script>
+</body>
+</html>
